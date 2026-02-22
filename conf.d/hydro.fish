@@ -20,14 +20,10 @@ function _hydro_pwd --on-variable PWD --on-variable fish_prompt_pwd_dir_length
 end
 
 function _hydro_postexec --on-event fish_postexec
-    set --local last_status $pipestatus
-    set --global _hydro_status "$hydro_symbol_prompt"
-
-    for code in $last_status
-        if test $code -ne 0
-            set --global _hydro_status "$_hydro_color_error$hydro_symbol_prompt"
-            break
-        end
+    if test $status -eq 0
+        set --global _hydro_status "$hydro_symbol_prompt"
+    else
+        set --global _hydro_status "$_hydro_color_error$hydro_symbol_prompt"
     end
 end
 
